@@ -18,6 +18,7 @@ function App() {
   const [posteoSeleccionado, setPosteoSeleccionado] = useState(null)
 
   const [vista, setVista] = useState("feed")
+  //Se les define así a las publicaciones
   const [likesDados, setLikesDados] = useState([])
 
   const [cargando, setCargando] = useState(false)
@@ -28,7 +29,6 @@ function App() {
     //Es el bloque de código que se va a 
     //ejecutar de manera asíncrona inmediatamente después 
     // de que el componente se dibuje en la pantalla por primera vez.
-
   }, [])
 
   async function cargarPosteos() {
