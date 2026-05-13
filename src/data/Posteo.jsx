@@ -1,15 +1,5 @@
 export const posteosBase = [
   {
-    usuario: "catfighters2d",
-    caption: "Nuevo modo filtrado por accidente: peleas de gatitos.",
-    likes: 43,
-    fecha: "hace 2 horas",
-    comentarios: [
-      "Tank dice que sigue balanceado.",
-      "Esto ya es mejor que el meta actual."
-    ],
-  },
-  {
     usuario: "fighters2d.oficial",
     caption: "Probá el juego original acá: fighters2d.netlify.app",
     likes: 87,
@@ -17,15 +7,16 @@ export const posteosBase = [
     link: "https://fighters2d.netlify.app",
     esPromo: true,
     comentarios: [
-      "La versión de gatos era necesaria.",
-      "Brawler main desde la beta."
+      "Prueben nuestro nuevo juego",
+      "tal vez tenga gatitos?",
+      "tal vez"
     ],
   },
     {
     usuario: "AverageUroborosEnjoyer",
     caption: "Fusilen a Chris Redfield y Sheva Alomar.",
     likes: 2009,
-    fecha: "hace 67 años",
+    fecha: "hace 19 años",
     link: "https://residentevil.fandom.com/wiki/Game_Over_(RE5)",
     esPromo: false,
     comentarios: [
@@ -66,7 +57,15 @@ export const posteosBase = [
     esPromo: false,
     comentarios: [
       "En mi opinion el blanco es mejor",
-      "Para mi depende pero un buen chocolate de leche es insuperable."
+      "Para mi depende pero un buen chocolate de leche es insuperable.",
+      "El chocolate blanco ni es chocolate, no tiene cacao.",
+      "Porque no es negro imbecil usuario de reddit.",
+      "Reddit mis pelotas, quien te crees para definir mi genero ##########",
+      "nigga",
+      "xd",
+      "whigga",
+      "black",
+      ""
     ],
   },
 ]

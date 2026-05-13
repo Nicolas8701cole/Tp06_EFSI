@@ -1,121 +1,159 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useEffect, useState } from "react"
+import "./App.css"
+
+import { traerImgGatos } from "./api/catsApi"
+import { posteosBase } from "./data/Posteo"
+import { perfil } from "./data/Perfil"
+
+import Header from "./components/Header"
+import Perfil from "./components/Perfil"
+import Feed from "./components/Feed"
+import ModalPosteo from "./components/ModalPosteo"
+import Loader from "./components/Loader"
+import ErrorMessage from "./components/ErrorMessage"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [posteos, setPosteos] = useState([])
+  const [cantidadVisible, setCantidadVisible] = useState(6)
+  const [posteoSeleccionado, setPosteoSeleccionado] = useState(null)
+
+  const [vista, setVista] = useState("feed")
+  const [likesDados, setLikesDados] = useState([])
+
+  const [cargando, setCargando] = useState(false)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    cargarPosteos()
+    //Es el bloque de código que se va a 
+    //ejecutar de manera asíncrona inmediatamente después 
+    // de que el componente se dibuje en la pantalla por primera vez.
+
+  }, [])
+
+  async function cargarPosteos() {
+    setCargando(true)
+    setError("")
+
+    try {
+      const gatos = await traerImgGatos(18)
+
+      const posteosArmados = gatos.map((gato, index) => {
+        const datosDelPosteo = posteosBase[index % posteosBase.length]
+
+        return {
+          id: gato.id || `posteo-${index}`,
+          imagen: gato.url,
+          ancho: gato.width,
+          alto: gato.height,
+          ...datosDelPosteo,
+        }
+      })
+
+      setPosteos(posteosArmados)
+    } catch (err) {
+      setError("No pude cargar los posteos. Probá recargando la página.")
+    } finally {
+      setCargando(false)
+    }
+  }
+
+  function cargarMas() {
+    setCantidadVisible(cantidadVisible + 3)
+  }
+
+  function abrirPosteo(posteo) {
+    setPosteoSeleccionado(posteo)
+  }
+
+  function cerrarPosteo() {
+    setPosteoSeleccionado(null)
+  }
+
+  function cambiarVista(nuevaVista) {
+    setVista(nuevaVista)
+    setPosteoSeleccionado(null)
+  }
+
+  function darLike(idPosteo) {
+    if (likesDados.includes(idPosteo)) {
+      setLikesDados(likesDados.filter((id) => id !== idPosteo))
+    } else {
+      setLikesDados([...likesDados, idPosteo])
+    }
+  }
+
+  function tieneLike(idPosteo) {
+    return likesDados.includes(idPosteo)
+  }
+
+  function calcularLikes(posteo) {
+    const likesBase = posteo.likesIniciales || 0
+
+    if (tieneLike(posteo.id)) {
+      return likesBase + 1
+    }
+
+    return likesBase
+  }
+
+  const posteosVisibles = posteos.slice(0, cantidadVisible)
+  const quedanPosteos = cantidadVisible < posteos.length
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <main className="app">
+      <Header
+        vista={vista}
+        cambiarVista={cambiarVista}
+      />
 
-      <div className="ticks"></div>
+      {cargando && (
+        <Loader texto="Cargando posteos de CatFighters 2D..." />
+      )}
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      {!cargando && error !== "" && (
+        <ErrorMessage mensaje={error} />
+      )}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {!cargando && error === "" && vista === "feed" && (
+        <>
+          <Feed
+            posteos={posteosVisibles}
+            abrirPosteo={abrirPosteo}
+            darLike={darLike}
+            tieneLike={tieneLike}
+            calcularLikes={calcularLikes}
+          />
+
+          {quedanPosteos && (
+            <div className="zona-cargar-mas">
+              <button className="boton-cargar-mas" onClick={cargarMas}>
+                Cargar más
+              </button>
+            </div>
+          )}
+        </>
+      )}
+
+      {!cargando && error === "" && vista === "perfil" && (
+        <Perfil
+          perfil={perfil}
+          posteos={posteos}
+          abrirPosteo={abrirPosteo}
+          cambiarVista={cambiarVista}
+        />
+      )}
+
+      {posteoSeleccionado && (
+        <ModalPosteo
+          posteo={posteoSeleccionado}
+          cerrarPosteo={cerrarPosteo}
+          darLike={darLike}
+          tieneLike={tieneLike}
+          calcularLikes={calcularLikes}
+        />
+      )}
+    </main>
   )
 }
 

@@ -1,0 +1,50 @@
+export const perfil = [
+{
+  usuario: "catfighters2d",
+  nombre: "CatFighters 2D",
+  bio: "Modo gato no confirmado oficialmente... todavía.",
+  publicaciones: 12,
+  seguidores: 128,
+  seguidos: 8,
+},
+{
+  usuario: "fighters2d.oficial",
+  nombre: "",
+  bio: ".",
+  publicaciones: 1,
+  seguidores: 1,
+  seguidos: 1,
+},
+{
+  usuario: "AverageUroborosEnjoyer",
+  nombre: "",
+  bio: ".",
+  publicaciones: 1,
+  seguidores: 1,
+  seguidos: 1,
+},
+{
+  usuario: "NikolaiDarrinsky",
+  nombre: "",
+  bio: ".",
+  publicaciones: 1,
+  seguidores: 1,
+  seguidos: 1,
+},
+{
+  usuario: "MeowMeowMeow",
+  nombre: "",
+  bio: ".",
+  publicaciones: 1,
+  seguidores: 1,
+  seguidos: 1,
+},
+{
+  usuario: "Xx_AsesinoCaballeros_xX",
+  nombre: "",
+  bio: ".",
+  publicaciones: 1,
+  seguidores: 1,
+  seguidos: 1,
+}
+]
