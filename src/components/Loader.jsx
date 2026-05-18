@@ -1,7 +1,7 @@
 function Loader({ texto = "Cargando..." }) {
   return (
     <div className="loader">
-      <div className="spinner"></div>
+      <div className="ruedita"></div>
       <p>{texto}</p>
     </div>
   )

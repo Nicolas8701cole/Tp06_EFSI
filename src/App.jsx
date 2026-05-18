@@ -6,7 +6,6 @@ import { posteosBase } from "./data/Posteo"
 import { perfil } from "./data/Perfil"
 
 import Header from "./components/Header"
-import Perfil from "./components/Perfil"
 import Feed from "./components/Feed"
 import ModalPosteo from "./components/ModalPosteo"
 import Loader from "./components/Loader"
@@ -18,7 +17,7 @@ function App() {
   const [posteoSeleccionado, setPosteoSeleccionado] = useState(null)
 
   const [vista, setVista] = useState("feed")
-  //Se les define así a las publicaciones
+  //Se les define así a las publicaciones "feed"
   const [likesDados, setLikesDados] = useState([])
 
   const [cargando, setCargando] = useState(false)
@@ -33,13 +32,13 @@ function App() {
 
   async function cargarPosteos() {
     setCargando(true)
-    setError("")
+    setError("") //¿? Probar de eliminar
 
     try {
       const gatos = await traerImgGatos(18)
 
       const posteosArmados = gatos.map((gato, index) => {
-        const datosDelPosteo = posteosBase[index % posteosBase.length]
+        const datosDelPosteo = posteosBase[index % posteosBase.length] //Repite datos simulados si nos quedamos sin?
 
         return {
           id: gato.id || `posteo-${index}`,
@@ -58,6 +57,7 @@ function App() {
     }
   }
 
+  //Definimos funciones
   function cargarMas() {
     setCantidadVisible(cantidadVisible + 3)
   }
@@ -78,19 +78,21 @@ function App() {
   function darLike(idPosteo) {
     if (likesDados.includes(idPosteo)) {
       setLikesDados(likesDados.filter((id) => id !== idPosteo))
+      //Si ya tenía el like rehace la lista menos el
     } else {
       setLikesDados([...likesDados, idPosteo])
+      //Si no lo añade
     }
   }
 
-  function tieneLike(idPosteo) {
+  function verSiTieneLike(idPosteo) {
     return likesDados.includes(idPosteo)
   }
 
   function calcularLikes(posteo) {
     const likesBase = posteo.likesIniciales || 0
 
-    if (tieneLike(posteo.id)) {
+    if (verSiTieneLike(posteo.id)) {
       return likesBase + 1
     }
 
@@ -98,6 +100,7 @@ function App() {
   }
 
   const posteosVisibles = posteos.slice(0, cantidadVisible)
+  //Solo se veran los permitidos
   const quedanPosteos = cantidadVisible < posteos.length
 
   return (
@@ -121,7 +124,7 @@ function App() {
             posteos={posteosVisibles}
             abrirPosteo={abrirPosteo}
             darLike={darLike}
-            tieneLike={tieneLike}
+            tieneLike={verSiTieneLike}
             calcularLikes={calcularLikes}
           />
 
@@ -137,7 +140,7 @@ function App() {
 
       {!cargando && error === "" && vista === "perfil" && (
         <Perfil
-          perfil={perfil}
+          perfiles={perfil}
           posteos={posteos}
           abrirPosteo={abrirPosteo}
           cambiarVista={cambiarVista}
@@ -149,7 +152,7 @@ function App() {
           posteo={posteoSeleccionado}
           cerrarPosteo={cerrarPosteo}
           darLike={darLike}
-          tieneLike={tieneLike}
+          tieneLike={verSiTieneLike}
           calcularLikes={calcularLikes}
         />
       )}
