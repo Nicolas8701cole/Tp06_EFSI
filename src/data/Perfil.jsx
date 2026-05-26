@@ -1,14 +1,15 @@
 export const perfil = [
 {
-  usuario: "catfighters2d",
-  nombre: "CatFighters 2D",
-  bio: "Modo gato no confirmado oficialmente... todavía.",
+  usuario: "user#catfighters2d2",
+  nombre: "Fighters 2D",
+  bio: "Creador de ecenarios no confirmado... todavía.",
   publicaciones: 12,
   seguidores: 128,
   seguidos: 8,
+  //./img/gatitoTierno.gif
 },
 {
-  usuario: "fighters2d.oficial",
+  usuario: "user#fighters2d.oficial",
   nombre: "",
   bio: ".",
   publicaciones: 1,
@@ -16,7 +17,7 @@ export const perfil = [
   seguidos: 1,
 },
 {
-  usuario: "AverageUroborosEnjoyer",
+  usuario: "user#AverageUroborosEnjoyer",
   nombre: "",
   bio: ".",
   publicaciones: 1,
@@ -24,7 +25,7 @@ export const perfil = [
   seguidos: 1,
 },
 {
-  usuario: "NikolaiDarrinsky",
+  usuario: "user#NikolaiDarrinsky",
   nombre: "",
   bio: ".",
   publicaciones: 1,
@@ -32,7 +33,7 @@ export const perfil = [
   seguidos: 1,
 },
 {
-  usuario: "MeowMeowMeow",
+  usuario: "user#MeowMeowMeow",
   nombre: "",
   bio: ".",
   publicaciones: 1,
@@ -40,7 +41,7 @@ export const perfil = [
   seguidos: 1,
 },
 {
-  usuario: "Xx_AsesinoCaballeros_xX",
+  usuario: "user#Xx_AsesinoCaballeros_xX",
   nombre: "",
   bio: ".",
   publicaciones: 1,

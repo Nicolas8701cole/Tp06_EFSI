@@ -5,6 +5,8 @@ import { traerImgGatos } from "./api/catsApi"
 import { posteosBase } from "./data/Posteo"
 import { perfil } from "./data/Perfil"
 
+import WarCats from "./components/WarCats"
+import Perfil from "./components/Perfil"
 import Header from "./components/Header"
 import Feed from "./components/Feed"
 import ModalPosteo from "./components/ModalPosteo"
@@ -15,6 +17,7 @@ function App() {
   const [posteos, setPosteos] = useState([])
   const [cantidadVisible, setCantidadVisible] = useState(6)
   const [posteoSeleccionado, setPosteoSeleccionado] = useState(null)
+  const [posDisparo, setPosDisparo] = useState(1)
 
   const [vista, setVista] = useState("feed")
   //Se les define así a las publicaciones "feed"
@@ -22,9 +25,35 @@ function App() {
 
   const [cargando, setCargando] = useState(false)
   const [error, setError] = useState("")
+  const [eventoActivo, setEventoActivo] = useState(false)
 
   useEffect(() => {
+    //Gatitos feed
     cargarPosteos()
+    //Gatitos disparados
+    let tiempoParaAparecer
+    let tiempoParaSalir
+
+    function prepararSiguienteEvento() {
+      const tiempoRandom = 5000 + Math.random() * 8000
+
+      tiempoParaAparecer = setTimeout(() => {
+        setPosDisparo(Math.floor(Math.random() * 3) + 1)
+        setEventoActivo(true)
+
+        tiempoParaSalir = setTimeout(() => {
+          setEventoActivo(false)
+          prepararSiguienteEvento()
+        }, 1800)
+      }, tiempoRandom)
+    }
+
+    prepararSiguienteEvento()
+
+    return () => {
+      clearTimeout(tiempoParaAparecer)
+      clearTimeout(tiempoParaSalir)
+    }
     //Es el bloque de código que se va a 
     //ejecutar de manera asíncrona inmediatamente después 
     // de que el componente se dibuje en la pantalla por primera vez.
@@ -90,7 +119,7 @@ function App() {
   }
 
   function calcularLikes(posteo) {
-    const likesBase = posteo.likesIniciales || 0
+    const likesBase = posteo.likes || 0
 
     if (verSiTieneLike(posteo.id)) {
       return likesBase + 1
@@ -156,6 +185,7 @@ function App() {
           calcularLikes={calcularLikes}
         />
       )}
+      <WarCats activo={eventoActivo} posDisparo={posDisparo} />
     </main>
   )
 }

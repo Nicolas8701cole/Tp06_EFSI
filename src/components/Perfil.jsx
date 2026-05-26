@@ -6,13 +6,13 @@ function Perfil({ perfiles, posteos, abrirPosteo, cambiarVista }) {
     <section className="perfil">
       <div className="perfil-arriba">
         <div className="avatar-perfil">
-          🐱
+          <img src="/img/gatitoTierno.gif" alt="" className="avatar-perfil" />
         </div>
+        {/*No poner otra cosa xd*/}
 
         <div className="perfil-info">
           <div className="perfil-titulo">
             <h2>{perfilPrincipal.usuario}</h2>
-            <button>Editar perfil</button>
           </div>
 
           <div className="perfil-stats">
@@ -26,23 +26,6 @@ function Perfil({ perfiles, posteos, abrirPosteo, cambiarVista }) {
             <p>{perfilPrincipal.bio}</p>
           </div>
         </div>
-      </div>
-
-      <div className="perfiles-extra">
-        {otrosPerfiles.map((item) => (
-          <div className="mini-perfil" key={item.usuario}>
-            <div className="mini-avatar">
-              {item.usuario.charAt(0).toUpperCase()}
-            </div>
-            <p>{item.usuario}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="perfil-separador">
-        <button onClick={() => cambiarVista("feed")}>
-          Ver feed completo
-        </button>
       </div>
 
       <div className="perfil-grid">
