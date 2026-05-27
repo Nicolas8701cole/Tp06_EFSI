@@ -151,7 +151,9 @@ button {
   object-fit: cover;
   display: block;
   border-radius: 8px;
-  transform: rotate(-0.6deg) /*deg es la representación de grados*/
+   /*deg es la representación de grados
+   Pero me critican, por lo cual lo quitaré
+   */
 }
 
 .posteo-acciones {
@@ -321,7 +323,6 @@ button {
   max-height: 80vh;
   object-fit: contain;
   border-radius: 8px;
-  transform: rotate(-3deg);
 }
 
 .modal-info {
